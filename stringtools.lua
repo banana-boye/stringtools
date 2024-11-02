@@ -58,13 +58,18 @@ local funcs = {
         table.insert(new_str, curr)
         return new_str
     end,
-    loadingBar = function(progress, width)
+    loadingBar = function(progress, width, fill, empty)
         expect(1, progress, "number")
         range(progress, -1,1)
+        expect(2, width, "number")
+        expect(3, fill, "string", "nil")
+        expect(4, empty, "string", "nil")
+        fill = fill and fill or "\127"
+        empty = empty and empty or " "
         local loading_bar = ""
         width = width - 2
         for i = 1, width do
-            loading_bar = (progress * (width)) >= i and loading_bar.."\158" or loading_bar.."\127"
+            loading_bar = (progress * (width)) >= i and loading_bar..fill or loading_bar..empty
         end
         write("["..loading_bar.."]")
     end,
@@ -83,6 +88,8 @@ local funcs = {
         return math.floor((width-#str)/2)
     end,
     split = function(str, sep)
+        expect(1, str, "string")
+        expect(1, str, "string")
         if sep == nil then
             sep = "%s"
         end
