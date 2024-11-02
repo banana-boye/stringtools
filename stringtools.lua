@@ -58,7 +58,7 @@ local funcs = {
         table.insert(new_str, curr)
         return new_str
     end,
-    loading_bar = function(progress, width)
+    loadingBar = function(progress, width)
         expect(1, progress, "number")
         range(progress, -1,1)
         local loading_bar = ""
@@ -77,10 +77,10 @@ local funcs = {
         end
         return count
     end,
-    centerx = function(str, width)
+    centerX = function(str, width)
         expect(1, str, "string")
-        expect(2, width)
-        return (width-#str)/2
+        expect(2, width, "number")
+        return math.floor((width-#str)/2)
     end
 }
 local function add()
