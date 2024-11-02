@@ -81,6 +81,16 @@ local funcs = {
         expect(1, str, "string")
         expect(2, width, "number")
         return math.floor((width-#str)/2)
+    end,
+    split = function(str, sep)
+        if sep == nil then
+            sep = "%s"
+        end
+        local t = {}
+        for sr in string.gmatch(str, "([^"..sep.."]+)") do
+            table.insert(t, sr)
+        end
+        return t
     end
 }
 local function add()
