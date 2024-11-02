@@ -1,7 +1,7 @@
 # CC_stringtools
 String tools is a simple tool to add a bit more of common string manipulation functions into cc
 
-> [Wiki]([https://github.com/banana-boye/CC_stringtools/wiki](https://github.com/banana-boye/CC_stringtools/wiki/String-methods))
+> [Wiki](https://github.com/banana-boye/CC_stringtools/wiki/String-methods)
 
 ### Using stringtools
 
