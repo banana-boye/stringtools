@@ -71,7 +71,7 @@ local funcs = {
         for i = 1, width do
             loading_bar = (progress * (width)) >= i and loading_bar..fill or loading_bar..empty
         end
-        write("["..loading_bar.."]")
+        return "["..loading_bar.."]"
     end,
     count = function(str, char)
         expect(1, str, "string")
@@ -98,6 +98,12 @@ local funcs = {
             table.insert(t, sr)
         end
         return t
+    end,
+    replace = function(str, from, to)
+        expect(1, str, "string")
+        expect(2, from, "string")
+        expect(3, to, "string")
+        return str:gsub(from, to)
     end
 }
 local function add()
