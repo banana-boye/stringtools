@@ -32,6 +32,15 @@ local function fracture(str)
     end
     return f
 end
+local function count(str,char)
+    expect(1, str, "string")
+    expect(2, char, "string")
+    local count = 0
+    for i in string.gmatch(str,char) do
+        count = count + 1
+    end
+    return count
+end
 
 local funcs = {
     fracture = fracture,
@@ -39,10 +48,10 @@ local funcs = {
         expect(1, str, "string")
         expect(2, end_x, "number")
 
-        local str = fracture(str)
+        str = fracture(str)
         local new_str = {}
         local curr = ""
-        local c = 1
+        local c = 0
     
         for index, char in pairs(str) do
             if c == end_x then
@@ -55,6 +64,42 @@ local funcs = {
             end
             c = c + 1
         end
+        table.insert(new_str, curr)
+        return new_str
+    end,
+    height = function(str)
+        expect(1, str, "string")
+        return count(str, "\n")
+    end,
+    wordWrap = function (str, end_x)
+        expect(1, str, "string")
+        expect(2, end_x, "number")
+
+        local words = {}
+        for word in string.gmatch(str, "%S+") do
+            table.insert(words, word)
+        end
+        words[1] = words[1] and words[1] or nil
+
+        local new_str = {}
+        local curr = ""
+        local c = 0
+
+        for _, word in ipairs(words) do
+            c = c + string.len(word) + 1
+            if c > end_x then
+                table.insert(new_str, curr)
+                curr = word
+                c = string.len(word) + 1
+            else
+                if curr ~= "" then
+                    curr = curr .. " " .. word
+                else
+                    curr = word
+                end
+            end
+        end
+
         table.insert(new_str, curr)
         return new_str
     end,
@@ -74,13 +119,7 @@ local funcs = {
         return "["..loading_bar.."]"
     end,
     count = function(str, char)
-        expect(1, str, "string")
-        expect(2, char, "string")
-        local count = 0
-        for i in string.gmatch(str,char) do
-            count = count + 1
-        end
-        return count
+        count(str,char)
     end,
     centerX = function(str, width)
         expect(1, str, "string")
